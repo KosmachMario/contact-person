@@ -1,0 +1,7 @@
+{
+  "name": "ContactPerson",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
