@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { DataService, Message } from '../services/data.service';
+import { ContactPerson, GroupedContactPersons } from '../models/interfaces';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,17 @@ export class HomePage {
     }, 3000);
   }
 
-  getMessages(): Message[] {
-    return this.data.getMessages();
+  getGroupedContacts(): GroupedContactPersons {
+    return this.data.getGroupedContactPersons(); 
+  }
+
+  onAddButtonClicked(): void {
+    
+    // this.data.addContactPerson();
+  }
+
+  onDeletePersonClicked(index: number): void {
+    this.data.removeContactPerson(index);
   }
 
 }

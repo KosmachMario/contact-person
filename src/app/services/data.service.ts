@@ -1,83 +1,98 @@
 import { Injectable } from '@angular/core';
-
-export interface Message {
-  fromName: string;
-  subject: string;
-  date: string;
-  id: number;
-  read: boolean;
-}
+import { ContactPerson, GroupedContactPersons } from '../models/interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-  public messages: Message[] = [
+  private _contactPersons: ContactPerson[] = [
     {
-      fromName: 'Matt Chorsey',
-      subject: 'New event: Trip to Vegas',
-      date: '9:32 AM',
       id: 0,
-      read: false
+      firstName: 'Matt',
+      lastName: 'Chorsey',
+      email: 'matt.chorsey@gmail.com',
+      address: {
+        street: 'Badger Pond Lane',
+        streetNo: 2820,
+        city: 'Crafton',
+        country: 'Pennsylvania',
+        postalCode: 15205,
+      },
     },
     {
-      fromName: 'Lauren Ruthford',
-      subject: 'Long time no chat',
-      date: '6:12 AM',
       id: 1,
-      read: false
+      firstName: 'Lauren',
+      lastName: 'Ruthford',
+      email: 'lauren.ruthford@gmail.com',
+      address: {
+        street: 'Parkway Drive',
+        streetNo: 2739,
+        city: 'Tucson',
+        country: 'Arizona',
+        postalCode: 85712,
+      },
     },
     {
-      fromName: 'Jordan Firth',
-      subject: 'Report Results',
-      date: '4:55 AM',
       id: 2,
-      read: false
+      firstName: 'Jordan',
+      lastName: 'Firth',
+      email: 'jordan.firth@gmail.com',
+      address: {
+        street: 'Riverside Drive',
+        streetNo: 1986,
+        city: 'Danielsville',
+        country: 'Georgia',
+        postalCode: 30633,
+      },
     },
     {
-      fromName: 'Bill Thomas',
-      subject: 'The situation',
-      date: 'Yesterday',
       id: 3,
-      read: false
-    },
-    {
-      fromName: 'Joanne Pollan',
-      subject: 'Updated invitation: Swim lessons',
-      date: 'Yesterday',
-      id: 4,
-      read: false
-    },
-    {
-      fromName: 'Andrea Cornerston',
-      subject: 'Last minute ask',
-      date: 'Yesterday',
-      id: 5,
-      read: false
-    },
-    {
-      fromName: 'Moe Chamont',
-      subject: 'Family Calendar - Version 1',
-      date: 'Last Week',
-      id: 6,
-      read: false
-    },
-    {
-      fromName: 'Kelly Richardson',
-      subject: 'Placeholder Headhots',
-      date: 'Last Week',
-      id: 7,
-      read: false
+      firstName: 'Mario',
+      lastName: 'Chap',
+      email: 'mario.Chap@gmail.com',
+      address: {
+        street: 'Riverside Drive',
+        streetNo: 1920,
+        city: 'Crafton',
+        country: 'Pennsylvania',
+        postalCode: 15205,
+      },
     }
   ];
 
-  constructor() { }
+  constructor() {}
 
-  public getMessages(): Message[] {
-    return this.messages;
+  public getContactPersonsCount(): number {
+    return this._contactPersons.length;
   }
 
-  public getMessageById(id: number): Message {
-    return this.messages[id];
+  public getContactPersons(): ContactPerson[] {
+    return this._contactPersons;
+  }
+
+  public getContactPersonById(index: number): ContactPerson {
+    return this._contactPersons[index];
+  }
+
+  public addContactPerson(person: ContactPerson): void {
+    this._contactPersons.push(person);
+  }
+
+  public removeContactPerson(index: number): void {
+    this._contactPersons.splice(index, 1);
+  }
+
+  public getGroupedContactPersons(): GroupedContactPersons {
+    return this._contactPersons.reduce((groupedPersons, person) => {
+      const personKey: string = person.lastName[0].toUpperCase();
+      let group: ContactPerson[] | undefined =
+        groupedPersons[personKey];
+      if (group) {
+        group.push(person);
+      } else {
+        groupedPersons[personKey] = [person];
+      }
+      return groupedPersons;
+    }, {});
   }
 }
