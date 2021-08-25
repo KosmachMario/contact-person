@@ -1,13 +1,15 @@
-<ion-item *ngIf="contactPerson"  [detail]="false">
-    <!-- [routerLink]="'/message/' + contactPerson.id" -->
+<ion-item *ngIf="contactPerson" [detail]="false">
     <ion-label class="ion-text-wrap">
         <h1>
             {{ fullName }}
-            <ion-button class="date" (click)="onDeleteClick()">
+            <ion-button class="date" (click)="onDeleteClicked(contactPerson.uid)">
                 <ion-icon name="trash-outline" size="small"></ion-icon>
+            </ion-button>
+            <ion-button class="date" (click)="onEditClicked(contactPerson.uid)">
+                <ion-icon name="pencil-outline" size="small"></ion-icon>
             </ion-button>
         </h1>
         <h2>Email: {{ contactPerson.email }}</h2>
-        <h2>Adress: {{ fullAddress }}</h2>
+        <h2>Address: {{ fullAddress }}</h2>
     </ion-label>
 </ion-item>

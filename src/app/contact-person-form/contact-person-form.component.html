@@ -1,132 +1,15 @@
-<div>
-    <h1>Add Contact Person</h1>
-    <form [formGroup]="supplierForm">
-        <section class="pb-3 pt-2 separator-bottom-dashed">
-            <!-- COUNTRY -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.country.invalid && supplierForm.controls.country.dirty">
-                <label [title]="resourceKeys.suppliersCreateCountryLabelTitle | translate">{{
-                    resourceKeys.suppliersCreateFormCountryLabel | translate }}</label>
-                <zenegy-country-code-searchable-list [countries]="countries" formControlName="country"
-                    (searchTermChanged)="filterCountries($event)" (valueChanged)="countryChanged($event)"
-                    [placeholder]="resourceKeys.suppliersCreateFormCountryPlaceholder"
-                    [selectedValue]="selectedCountryItem" focusOnInputField="true">
-                </zenegy-country-code-searchable-list>
-            </zenegy-form-field>
-
-            <!-- NAME -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.name.invalid && supplierForm.controls.name.dirty">
-                <label [title]="resourceKeys.suppliersCreateFindCompanyLabelTitle | translate">{{
-                    resourceKeys.suppliersCreateFormFindCompanyLabel | translate }}</label>
-                <zenegy-company-lookup *ngIf="selectedCountryItem.value === countryDk" formControlName="name"
-                    [type]="companyLookupType.name"
-                    [triggerPlaceholder]="resourceKeys.suppliersCreateFormFindCompanyPlaceholder"
-                    [companyUid]="selfUser?.tenant.uid" [countryCode]="countryDk"
-                    (valueChanged)="companyChanged($event)" [company]="company">
-                </zenegy-company-lookup>
-                <input zenegy-input *ngIf="selectedCountryItem.value !== countryDk" formControlName="name"
-                    [placeholder]="resourceKeys.suppliersCreateFormFindCompanyFromDifferentCountryPlaceholder | translate">
-            </zenegy-form-field>
-        </section>
-        <section class="pb-3 pt-2 separator-bottom-dashed">
-            <!-- NAME INPUT -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.address.invalid && supplierForm.controls.address.dirty">
-                <label [title]="resourceKeys.suppliersCreateNameLabelTitle | translate">
-                    {{ resourceKeys.suppliersCreateFormNameLabel | translate }}</label>
-
-                <input class="pl-2 name-input-field" formControlName="name" [readonly]="!enabledEditing"
-                    formControlName="name" [placeholder]="resourceKeys.suppliersCreateFormNamePlaceholder | translate">
-                <zenegy-dropdown-menu-button *zenegySuffix [menuItems]="suffix.menuItems"
-                    [title]="resourceKeys.suppliersCreateEdit | translate" [readonly]="true" [disabled]="false"
-                    [popoverHorizontalAlign]="'end'" [icon]="icon" (menuItemClick)="handleGroupEditingChanged($event)"
-                    (menuItemIconClick)="handleGroupEditingChanged($event)">
-                </zenegy-dropdown-menu-button>
-            </zenegy-form-field>
-
-            <!-- CVR -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.identificationNumber.invalid && supplierForm.controls.identificationNumber.dirty">
-                <label [title]="resourceKeys.suppliersCreateIdLabelTitle | translate">{{
-                    identificationNumberLabel | translate }}</label>
-                <input zenegy-input formControlName="identificationNumber" [readonly]="!enabledEditing"
-                    [placeholder]="resourceKeys.suppliersCreateFormIdentificationNumberPlaceholder | translate">
-                <ng-container class="self-icon" *ngIf="!enabledEditing">
-                    <zenegy-icon *zenegySuffix name="cvr" class="self-icon" color="prefix-gray"></zenegy-icon>
-                </ng-container>
-            </zenegy-form-field>
-
-
-            <!-- ADDRESS -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.address.invalid && supplierForm.controls.address.dirty">
-                <label [title]="resourceKeys.suppliersCreateAddressLabelTitle | translate">{{
-                    resourceKeys.suppliersCreateFormAddressLabel | translate }}</label>
-                <input zenegy-input formControlName="address" [readonly]="!enabledEditing"
-                    [placeholder]="resourceKeys.suppliersCreateFormAddressPlaceholder | translate"
-                    (change)="handleAddressChange($event)">
-                <ng-container class="self-icon" *ngIf="!enabledEditing">
-                    <zenegy-icon *zenegySuffix name="cvr" class="self-icon" color="prefix-gray"></zenegy-icon>
-                </ng-container>
-            </zenegy-form-field>
-
-            <!-- ZIP CODE -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.zipCode.invalid && supplierForm.controls.zipCode.dirty">
-                <label [title]="resourceKeys.suppliersCreateZipCodeLabelTitle | translate">{{
-                    resourceKeys.suppliersCreateFormZipCodeLabel | translate }}</label>
-                <input zenegy-input formControlName="zipCode" [readonly]="!enabledEditing"
-                    [placeholder]="resourceKeys.suppliersCreateFormZipCodePlaceholder | translate">
-                <ng-container class="self-icon" *ngIf="!enabledEditing">
-                    <zenegy-icon *zenegySuffix name="cvr" class="self-icon" color="prefix-gray"></zenegy-icon>
-                </ng-container>
-            </zenegy-form-field>
-
-            <!-- CITY -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.city.invalid && supplierForm.controls.city.dirty">
-                <label [title]="resourceKeys.suppliersCreateCityLabelTitle | translate">{{
-                    resourceKeys.suppliersCreateFormCityLabel | translate }}</label>
-                <input zenegy-input formControlName="city" [readonly]="!enabledEditing"
-                    [placeholder]="resourceKeys.suppliersCreateFormCityPlaceholder | translate"
-                    (change)="handleCityChange($event)">
-                <ng-container class="self-icon" *ngIf="!enabledEditing">
-                    <zenegy-icon *zenegySuffix name="cvr" class="self-icon" color="prefix-gray"></zenegy-icon>
-                </ng-container>
-            </zenegy-form-field>
-
-            <!-- EMAIL -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.email.invalid && supplierForm.controls.email.dirty">
-                <label [title]="resourceKeys.suppliersCreateEmailLabelTitle | translate">{{
-                    resourceKeys.suppliersCreateFormEmailLabel | translate }}</label>
-                <input zenegy-input formControlName="email"
-                    [placeholder]="resourceKeys.suppliersCreateFormEmailPlaceholder | translate">
-            </zenegy-form-field>
-        </section>
-        <section class="pt-2">
-            <!-- SUPPLIER NUMBER -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.supplierNumber.invalid && supplierForm.controls.supplierNumber.dirty">
-                <label [title]="resourceKeys.suppliersCreateNumberLabelTitle | translate">{{
-                    resourceKeys.suppliersCreateFormSupplierNumberLabel | translate }}</label>
-                <input zenegy-input formControlName="supplierNumber"
-                    [placeholder]="resourceKeys.suppliersCreateFormSupplierNumberPlaceholder | translate">
-            </zenegy-form-field>
-
-            <!-- CURRENCY -->
-            <zenegy-form-field class="new-supplier-form"
-                [hasErrors]="supplierForm.controls.currency.invalid && supplierForm.controls.currency.dirty">
-                <label [title]="resourceKeys.suppliersCreateCurrencyLabelTitle | translate">{{
-                    resourceKeys.suppliersCreateFormCurrencyLabel | translate }}</label>
-                <currency-searchable-list-select formControlName="currency"
-                    [triggerPlaceholderText]="resourceKeys.suppliersCreateFormCurrencyPlaceholder | translate"
-                    [searchPlaceholder]="resourceKeys.suppliersCreateSearchCurrencyPlaceholder | translate">
-                </currency-searchable-list-select>
-            </zenegy-form-field>
-
-        </section>
-
-    </form>
-</div>
+<form [formGroup]="contactsForm" (ngSubmit)="logForm()">
+    <ion-item>
+        <ion-label>First Name</ion-label>
+        <ion-input type="text" formControlName="firstName"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Last Name</ion-label>
+        <ion-input type="text" formControlName="lastName"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-button type="submit" [disabled]="!contactsForm.valid"> {{ formMode == 1 ? 'Edit Contact' : 'Add Contact' }}</ion-button>
+</form>

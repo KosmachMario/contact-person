@@ -1,0 +1,10 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>Edit Contact Person</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+        <app-contact-person-form *ngIf="contactPerson" [formMode]="formMode" [contactPerson]="contactPerson"
+            (contactChanged)="onEditButtonClicked($event)"></app-contact-person-form>
+    </ion-card-content>
+</ion-card>

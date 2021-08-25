@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { ContactPerson, GroupedContactPersons } from '../models/interfaces';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GroupedContactPersons } from '../models/interfaces';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -7,26 +8,22 @@ import { DataService } from '../services/data.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  constructor(private data: DataService) {}
+export class HomePage implements OnInit {
+  public groupedContacts$: Observable<GroupedContactPersons>;
 
-  refresh(ev) {
+  constructor(private dataService: DataService) {}
+
+  public refresh(ev) {
     setTimeout(() => {
       ev.detail.complete();
     }, 3000);
   }
 
-  getGroupedContacts(): GroupedContactPersons {
-    return this.data.getGroupedContactPersons(); 
+  public onDeletePersonClicked(personUid: string): void {
+    this.dataService.removeContactPerson(personUid);
   }
 
-  onAddButtonClicked(): void {
-    
-    // this.data.addContactPerson();
+  ngOnInit() {
+    this.groupedContacts$ = this.dataService.groupedContactPersons$;
   }
-
-  onDeletePersonClicked(index: number): void {
-    this.data.removeContactPerson(index);
-  }
-
 }

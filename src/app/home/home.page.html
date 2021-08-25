@@ -12,17 +12,17 @@
   </ion-refresher>
 
   <ion-list>
-    <ng-container *ngIf="getGroupedContacts() as contactGroups">
+    <ng-container *ngIf="groupedContacts$ | async as contactGroups">
       <ion-label *ngFor="let contactGroupKey of contactGroups | getContactGroupKeys">
         <h1>Letter: {{ contactGroupKey }}</h1>
-        <app-contact-person *ngFor="let contact of contactGroups[contactGroupKey]; let i = index"
-          [contactPerson]="contact" (deletePersonClicked)="onDeletePersonClicked(i)"></app-contact-person>
+        <app-contact-person *ngFor="let contact of contactGroups[contactGroupKey]" [contactPerson]="contact"
+          (deletePersonClicked)="onDeletePersonClicked($event)"></app-contact-person>
       </ion-label>
     </ng-container>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)=onAddButtonClicked()>
+    <ion-fab-button [routerLink]="'/contact-person/add'">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

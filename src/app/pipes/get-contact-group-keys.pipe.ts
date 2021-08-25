@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class GetContactGroupKeysPipe implements PipeTransform {
 
   transform(objectValue: Object): string[]  {
-    return Object.keys(objectValue);
+    return Object.keys(objectValue).sort();
   }
 
 }
