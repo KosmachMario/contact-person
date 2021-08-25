@@ -25,6 +25,15 @@ export class DataService {
     this.getContactPersons();
   }
 
+  public async isEmailTaken(email: string): Promise<boolean> {
+    const contactPersons: ContactPerson[] = [];
+    await this._storage?.forEach((value: ContactPerson, key, index) => {
+      contactPersons.push(value);
+    });
+
+    return contactPersons.findIndex((cp) => cp.email === email) !== -1;
+  }
+
   public async getContactPersons(): Promise<void> {
     const contactPersons: ContactPerson[] = [];
     await this._storage.forEach((value: ContactPerson, key, index) => {

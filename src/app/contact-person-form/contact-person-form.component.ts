@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
+  AbstractControl,
+  AsyncValidatorFn,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -7,6 +9,7 @@ import {
 } from '@angular/forms';
 import { FormMode } from '../models/enums';
 import { ContactPerson } from '../models/interfaces';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-contact-person-form',
@@ -22,7 +25,7 @@ export class ContactPersonFormComponent implements OnInit {
   @Output() contactChanged: EventEmitter<ContactPerson> =
     new EventEmitter<ContactPerson>();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private dataService: DataService) {}
 
   public logForm(): void {
     const contact: ContactPerson = {
@@ -39,6 +42,21 @@ export class ContactPersonFormComponent implements OnInit {
     this.contactChanged.emit(contact);
   }
 
+  private isEmailTaken(): AsyncValidatorFn {
+    return (
+      control: AbstractControl
+    ): Promise<{ [key: string]: any } | null> => {
+      return this.dataService
+        .isEmailTaken(control.value)
+        .then((isEmailTaken) => {
+          if (isEmailTaken) {
+            return { emailTaken: control.value };
+          }
+          return null;
+        });
+    };
+  }
+
   private isEditMode(): boolean {
     return this.formMode === FormMode.edit;
   }
@@ -49,10 +67,11 @@ export class ContactPersonFormComponent implements OnInit {
       lastName: new FormControl('', Validators.required),
       email: new FormControl(
         '',
-        Validators.compose([
+        [
           Validators.required,
           Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
-        ])
+        ],
+        [this.isEmailTaken()]
       ),
     });
     if (this.isEditMode() && this.contactPerson) {
