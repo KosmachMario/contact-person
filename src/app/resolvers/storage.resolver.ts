@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, take, tap } from 'rxjs/operators';
-import { DataService } from './services/data.service';
+import { DataService } from '../services/data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,10 +20,7 @@ export class StorageResolver implements Resolve<boolean> {
   ): Observable<boolean> {
     return this.dataService.storageInitialized$.pipe(
       filter((s) => s),
-      take(1),
-      tap((val) => {
-        console.log('HEHERE', val);
-      })
+      take(1)
     );
   }
 }

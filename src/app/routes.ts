@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { ContactPersonAddComponent } from './contact-person-add/contact-person-add.component';
 import { ContactPersonEditComponent } from './contact-person-edit/contact-person-edit.component';
-import { StorageResolver } from './storage.resolver';
+import { StorageResolver } from './resolvers/storage.resolver';
 
 export const routes: Routes = [
   {
