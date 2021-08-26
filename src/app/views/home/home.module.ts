@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
-import { ContactPersonComponent } from '../contact-person/contact-person.component';
-import { GetContactGroupKeysPipe } from '../pipes/get-contact-group-keys.pipe';
+import { ContactPersonComponent } from '../../contact-person/contact-person.component';
+import { GetContactGroupKeysPipe } from '../../pipes/get-contact-group-keys.pipe';
 
 @NgModule({
   imports: [

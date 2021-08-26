@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GroupedContactPersons } from '../models/interfaces';
-import { DataService } from '../services/data.service';
+import { GroupedContactPersons } from '../../models/interfaces';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-home',
