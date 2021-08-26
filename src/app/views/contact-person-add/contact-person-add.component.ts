@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactPerson } from '../models/interfaces';
-import { DataService } from '../services/data.service';
+import { ContactPerson } from '../../models/interfaces';
+import { DataService } from '../../services/data.service';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
 

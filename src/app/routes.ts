@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ContactPersonAddComponent } from './contact-person-add/contact-person-add.component';
+import { ContactPersonAddComponent } from './views/contact-person-add/contact-person-add.component';
 import { ContactPersonEditComponent } from './contact-person-edit/contact-person-edit.component';
 import { StorageResolver } from './resolvers/storage.resolver';
 
