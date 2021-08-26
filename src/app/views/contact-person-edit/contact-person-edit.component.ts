@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactPerson } from '../../models/interfaces';
 import { DataService } from '../../services/data.service';
-import { map, take, tap } from 'rxjs/operators';
-import { of, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { FormMode } from '../../models/enums';
 
 @Component({

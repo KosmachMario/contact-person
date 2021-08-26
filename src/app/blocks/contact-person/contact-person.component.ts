@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   Input,
   Output,
@@ -15,7 +14,7 @@ import { ContactPerson } from '../../models/interfaces';
   styleUrls: ['./contact-person.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactPersonComponent implements OnInit {
+export class ContactPersonComponent {
   @Input() contactPerson: ContactPerson;
   @Output() deletePersonClicked: EventEmitter<string> =
     new EventEmitter<string>();
@@ -29,8 +28,6 @@ export class ContactPersonComponent implements OnInit {
   }
 
   constructor(private router: Router) {}
-
-  ngOnInit() {}
 
   isIos() {
     const win = window as any;

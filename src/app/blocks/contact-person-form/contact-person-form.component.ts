@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   AbstractControl,
   AsyncValidatorFn,
@@ -7,6 +13,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { FormHelper } from 'src/static/form-static';
 import { FormMode } from '../../models/enums';
 import { ContactPerson } from '../../models/interfaces';
 import { DataService } from '../../services/data.service';
@@ -18,6 +25,11 @@ import { DataService } from '../../services/data.service';
 })
 export class ContactPersonFormComponent implements OnInit {
   public contactsForm: FormGroup;
+  public formHelper = FormHelper;
+  public validationKeys: string[] = FormHelper.validationMessagesKeys;
+  public addressValidationKeys: string[] = FormHelper.addressMessagesKeys;
+  public validationMessages = FormHelper.validation_messages;
+  public addressValidationMessages = FormHelper.address_validation_messages;
 
   @Input() contactPerson: ContactPerson;
   @Input() formMode: FormMode = FormMode.add;
@@ -57,7 +69,7 @@ export class ContactPersonFormComponent implements OnInit {
     return this.formMode === FormMode.edit;
   }
 
-  ngOnInit(): void {
+  private createForm(): void {
     this.contactsForm = this.fb.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -71,6 +83,9 @@ export class ContactPersonFormComponent implements OnInit {
       ),
       address: new FormControl(''),
     });
+  }
+
+  private setValuesInEditMode(): void {
     if (this.isEditMode() && this.contactPerson) {
       this.contactsForm.setValue({
         firstName: this.contactPerson.firstName,
@@ -79,5 +94,10 @@ export class ContactPersonFormComponent implements OnInit {
         address: this.contactPerson.address,
       });
     }
+  }
+
+  ngOnInit(): void {
+    this.createForm();
+    this.setValuesInEditMode();
   }
 }

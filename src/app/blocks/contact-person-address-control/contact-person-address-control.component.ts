@@ -69,7 +69,7 @@ export class ContactPersonAddressControlComponent
     return this.validateFn ? this.validateFn(control) : null;
   }
 
-  ngOnInit(): void {
+  private createForm(): void {
     this.addressForm = this.fb.group({
       street: new FormControl('', Validators.required),
       streetNo: new FormControl('', Validators.required),
@@ -77,5 +77,9 @@ export class ContactPersonAddressControlComponent
       country: new FormControl('', Validators.required),
       postalCode: new FormControl('', Validators.required),
     });
+  }
+
+  ngOnInit(): void {
+    this.createForm();
   }
 }
