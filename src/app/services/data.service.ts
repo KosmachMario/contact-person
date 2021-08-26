@@ -8,12 +8,14 @@ import { BehaviorSubject, from, Observable } from 'rxjs';
 })
 export class DataService {
   private _storage: Storage | null = null;
-
   private _groupedContactPersons: BehaviorSubject<GroupedContactPersons> =
     new BehaviorSubject<GroupedContactPersons>({});
+  private storageInitialized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public groupedContactPersons$: Observable<GroupedContactPersons> =
     this._groupedContactPersons.asObservable();
+  public storageInitialized$: Observable<boolean> =
+    this.storageInitialized.asObservable();
 
   constructor(private storage: Storage) {
     this.init();
@@ -22,6 +24,7 @@ export class DataService {
   async init(): Promise<void> {
     const storage = await this.storage.create();
     this._storage = storage;
+    this.storageInitialized.next(true);
     this.getContactPersons();
   }
 

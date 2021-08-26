@@ -11,6 +11,8 @@
         <ion-label>Email</ion-label>
         <ion-input type="text" formControlName="email"></ion-input>
     </ion-item>
+    <!-- <app-contact-person-address-control>
+    </app-contact-person-address-control> -->
     <ion-button type="submit" [disabled]="!contactsForm.valid"> {{ formMode == 1 ? 'Edit Contact' : 'Add Contact' }}
     </ion-button>
 </form>
