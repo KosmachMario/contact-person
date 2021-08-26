@@ -1,4 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { AppRoutingModule } from 'src/app/routing/app-routing.module';
 
 import { ContactPersonComponent } from './contact-person.component';
 
@@ -8,9 +14,9 @@ describe('ContactPersonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContactPersonComponent ]
-    })
-    .compileComponents();
+      declarations: [ContactPersonComponent],
+      imports: [AppRoutingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -21,5 +27,23 @@ describe('ContactPersonComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should give back full name', () => {
+    component.contactPerson = {
+      firstName: 'Mario',
+      lastName: 'Kosmach',
+      email: 'mario.kosmach@gmail.com',
+      uid: '1',
+      address: {
+        city: 'Skopje',
+        country: 'Macedonia',
+        postalCode: 1000,
+        street: 'Bulevar',
+        streetNo: 15,
+      },
+    };
+
+    expect(component.fullName).toBe('Mario Kosmach');
   });
 });
