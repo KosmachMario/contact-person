@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ContactPersonFormComponent } from './contact-person-form/contact-person-form.component';
 import { ContactPersonAddComponent } from './views/contact-person-add/contact-person-add.component';
-import { ContactPersonEditComponent } from './contact-person-edit/contact-person-edit.component';
+import { ContactPersonEditComponent } from './views/contact-person-edit/contact-person-edit.component';
 import { ContactPersonAddressControlComponent } from './contact-person-address-control/contact-person-address-control.component';
 
 @NgModule({

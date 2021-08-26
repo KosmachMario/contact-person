@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ContactPerson } from '../models/interfaces';
-import { DataService } from '../services/data.service';
+import { ContactPerson } from '../../models/interfaces';
+import { DataService } from '../../services/data.service';
 import { map, take, tap } from 'rxjs/operators';
 import { of, Subscription } from 'rxjs';
-import { FormMode } from '../models/enums';
+import { FormMode } from '../../models/enums';
 
 @Component({
   selector: 'app-contact-person-edit',
