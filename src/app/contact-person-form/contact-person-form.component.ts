@@ -31,13 +31,6 @@ export class ContactPersonFormComponent implements OnInit {
     const contact: ContactPerson = {
       ...this.contactsForm.value,
       uid: this.isEditMode() ? this.contactPerson.uid : '',
-      address: {
-        city: 'Some City',
-        country: 'Some Country',
-        postalCode: 1000,
-        street: 'Some Street',
-        streetNo: 15,
-      },
     };
     this.contactChanged.emit(contact);
   }
@@ -46,14 +39,17 @@ export class ContactPersonFormComponent implements OnInit {
     return (
       control: AbstractControl
     ): Promise<{ [key: string]: any } | null> => {
-      return this.dataService
-        .isEmailTaken(control.value)
-        .then((isEmailTaken) => {
-          if (isEmailTaken) {
-            return { emailTaken: control.value };
-          }
-          return null;
-        });
+      if (!this.isEditMode() || control.value !== this.contactPerson?.email) {
+        return this.dataService
+          .isEmailTaken(control.value)
+          .then((isEmailTaken) => {
+            if (isEmailTaken) {
+              return { emailTaken: control.value };
+            }
+            return null;
+          });
+      }
+      return Promise.resolve(null);
     };
   }
 
@@ -73,12 +69,14 @@ export class ContactPersonFormComponent implements OnInit {
         ],
         [this.isEmailTaken()]
       ),
+      address: new FormControl(''),
     });
     if (this.isEditMode() && this.contactPerson) {
       this.contactsForm.setValue({
         firstName: this.contactPerson.firstName,
         lastName: this.contactPerson.lastName,
         email: this.contactPerson.email,
+        address: this.contactPerson.address,
       });
     }
   }

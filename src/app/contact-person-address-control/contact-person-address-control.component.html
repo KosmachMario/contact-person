@@ -1,20 +1,22 @@
-<ion-item>
-    <ion-label>Street</ion-label>
-    <ion-input type="text" formControlName="firstName"></ion-input>
-</ion-item>
-<ion-item>
-    <ion-label>Street No</ion-label>
-    <ion-input type="number" formControlName="lastName"></ion-input>
-</ion-item>
-<ion-item>
-    <ion-label>City</ion-label>
-    <ion-input type="text" formControlName="email"></ion-input>
-</ion-item>
-<ion-item>
-    <ion-label>Country</ion-label>
-    <ion-input type="text" formControlName="email"></ion-input>
-</ion-item>
-<ion-item>
-    <ion-label>Postal Code</ion-label>
-    <ion-input type="number" formControlName="email"></ion-input>
-</ion-item>
+<form [formGroup]="addressForm">
+    <ion-item>
+        <ion-label>Street</ion-label>
+        <ion-input type="text" formControlName="street"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Street No</ion-label>
+        <ion-input type="number" formControlName="streetNo"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>City</ion-label>
+        <ion-input type="text" formControlName="city"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Country</ion-label>
+        <ion-input type="text" formControlName="country"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Postal Code</ion-label>
+        <ion-input type="number" formControlName="postalCode"></ion-input>
+    </ion-item>
+</form>
