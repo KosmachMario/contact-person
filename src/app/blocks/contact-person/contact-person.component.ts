@@ -7,7 +7,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContactPerson } from '../models/interfaces';
+import { ContactPerson } from '../../models/interfaces';
 
 @Component({
   selector: 'app-contact-person',

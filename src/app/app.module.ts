@@ -7,12 +7,12 @@ import { Drivers } from '@ionic/storage';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { ContactPersonFormComponent } from './contact-person-form/contact-person-form.component';
+import { AppRoutingModule } from './routing/app-routing.module';
+import { ContactPersonFormComponent } from './blocks/contact-person-form/contact-person-form.component';
 import { ContactPersonAddComponent } from './views/contact-person-add/contact-person-add.component';
 import { ContactPersonEditComponent } from './views/contact-person-edit/contact-person-edit.component';
-import { ContactPersonAddressControlComponent } from './contact-person-address-control/contact-person-address-control.component';
+import { ContactPersonAddressControlComponent } from './blocks/contact-person-address-control/contact-person-address-control.component';
+import { AppComponent } from './app/app.component';
 
 @NgModule({
   declarations: [

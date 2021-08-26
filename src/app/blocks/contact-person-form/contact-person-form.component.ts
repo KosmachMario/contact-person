@@ -7,9 +7,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { FormMode } from '../models/enums';
-import { ContactPerson } from '../models/interfaces';
-import { DataService } from '../services/data.service';
+import { FormMode } from '../../models/enums';
+import { ContactPerson } from '../../models/interfaces';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-contact-person-form',
